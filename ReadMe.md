@@ -13,5 +13,8 @@ For example, the first player, Donald, begins a turn with a roll of 5. Donald co
 As with many games of folk origin, Pig is played with many rule variations, including the use of two dice instead of one. Right now, this version is only a starter and uses only one single dice but I'am expecting to built a Commercial variants of two-dice Pig include Pass the Pigs, [Pig Dice](https://www.boardgamegeek.com/boardgame/11022/pig-dice), and [Skunk.](https://www.boardgamegeek.com/boardgame/3425/skunk)
 
 
-![Philadelphia's Magic Gardens. This place was so cool!](/assets/images/philly-magic-gardens.jpg "Philadelphia's Magic Gardens")
 
+
+Pig game flowchart 
+
+![Pig game flowchart ](/assets/images/philly-magic-gardens.jpg "Philadelphia's Magic Gardens")

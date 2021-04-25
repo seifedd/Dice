@@ -17,4 +17,4 @@ As with many games of folk origin, Pig is played with many rule variations, incl
 
 Pig game flowchart 
 
-![Pig game flowchart ](/assets/images/philly-magic-gardens.jpg "Philadelphia's Magic Gardens")
+![Pig game flowchart ](https://github.com/seifedd/Dice/blob/master/pig-game-flowchart.png )

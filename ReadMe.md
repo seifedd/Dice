@@ -14,7 +14,7 @@ As with many games, Pig is played with many rule variations, including the use o
 
 
 
-
+..
 This variant is 1-dice Pig game and below is the flowchart depicting a sketch of the application
 
 ![Pig game flowchart ](https://github.com/seifedd/Dice/blob/master/pig-game-flowchart.png )

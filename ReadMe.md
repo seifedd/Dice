@@ -1,3 +1,5 @@
+## App deployed to production 
+
 ## The objective of pig game is to score 100 points before the opponent do.
 ### 1. Gameplay:
 In each turn, a player rolls a die repeatedly until either a 1 is rolled, or player decides to **hold** and pass on the turn to its opponent. The number a player rolls (except the **number 1**) is added to a current score. 

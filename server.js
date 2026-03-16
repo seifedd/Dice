@@ -5,6 +5,7 @@ const helmet = require('helmet');
 const cors = require('cors');
 const path = require('path');
 const sqlite3 = require('sqlite3').verbose();
+const serverless = require('serverless-http');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -31,19 +32,25 @@ app.use(
   })
 );
 
-app.use(express.json({ limit: '10kb' })); // Limit payload size
+app.use(express.json({ limit: '10kb' })); 
 
 // ── Static Files ─────────────────────────────────────────────────────────────
+// (Only used for local testing. Netlify serves static files natively)
 app.use(express.static(path.join(__dirname, 'public')));
 
 // ── Database Setup ────────────────────────────────────────────────────────────
+// Netlify Functions are read-only except for /tmp
+const dbPath = process.env.NETLIFY 
+  ? '/tmp/leaderboard.db' 
+  : path.join(__dirname, 'leaderboard.db');
+
 const db = new sqlite3.Database(
-  path.join(__dirname, 'leaderboard.db'),
+  dbPath,
   (err) => {
     if (err) {
       console.error('Failed to connect to database:', err.message);
     } else {
-      console.log('Connected to SQLite database.');
+      console.log('Connected to SQLite database at', dbPath);
     }
   }
 );
@@ -71,11 +78,12 @@ function isValidScore(n) {
 }
 
 // ── Routes ────────────────────────────────────────────────────────────────────
+const apiRouter = express.Router();
 
-// GET /api/leaderboard — top 10 scores
-app.get('/api/leaderboard', (req, res) => {
+// GET /leaderboard — top 10 scores
+apiRouter.get('/leaderboard', (req, res) => {
   db.all(
-    'SELECT name, score, rolls FROM leaderboard ORDER BY score DESC, rolls ASC LIMIT 10',
+    'SELECT name, score, rolls FROM leaderboard ORDER BY score ASC, rolls ASC LIMIT 10',
     [],
     (err, rows) => {
       if (err) {
@@ -87,8 +95,8 @@ app.get('/api/leaderboard', (req, res) => {
   );
 });
 
-// POST /api/leaderboard — submit a new score
-app.post('/api/leaderboard', (req, res) => {
+// POST /leaderboard — submit a new score
+apiRouter.post('/leaderboard', (req, res) => {
   const name = sanitizeString(req.body.name) || 'Anonymous';
   const score = req.body.score;
   const rolls = req.body.rolls;
@@ -111,10 +119,9 @@ app.post('/api/leaderboard', (req, res) => {
   );
 });
 
-// 404 catch-all
-app.use((req, res) => {
-  res.status(404).json({ error: 'Not found.' });
-});
+// Mount the router on both /api (local) and /.netlify/functions/api (Netlify)
+app.use('/api', apiRouter);
+app.use('/.netlify/functions/api', apiRouter);
 
 // Global error handler
 app.use((err, req, res, _next) => {
@@ -122,7 +129,13 @@ app.use((err, req, res, _next) => {
   res.status(500).json({ error: 'Internal server error.' });
 });
 
-// ── Start ─────────────────────────────────────────────────────────────────────
-app.listen(PORT, () => {
-  console.log(`🎲 Pig Game server running on http://localhost:${PORT}`);
-});
+// ── Start / Export ────────────────────────────────────────────────────────────
+if (process.env.NETLIFY) {
+  // Export for Netlify Functions
+  module.exports.handler = serverless(app);
+} else {
+  // Start server locally
+  app.listen(PORT, () => {
+    console.log(`🎲 Pig Game server running on http://localhost:${PORT}`);
+  });
+}

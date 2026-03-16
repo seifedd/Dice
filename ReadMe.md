@@ -2,7 +2,7 @@
 
 > A two-player dice strategy game rebuilt as a **FullStack web application** to showcase real-world software engineering skills.
 
-**🌐 Live Demo → [pig-game-xyz.onrender.com](#)** *(link updated after deploy)*
+**🌐 Live Demo → [Deploying to Netlify...](#)**
 
 ---
 
@@ -11,8 +11,8 @@
 | Layer      | Technology                          |
 |------------|-------------------------------------|
 | Frontend   | Vanilla HTML5 · CSS3 · JavaScript   |
-| Backend    | Node.js · Express.js                |
-| Database   | SQLite (via `sqlite3`)              |
+| Backend    | Node.js · Express.js · Serverless HTTP |
+| Database   | SQLite (Ephemeral for Serverless)   |
 | Security   | Helmet · CORS · Input Validation    |
 
 ---
@@ -86,7 +86,11 @@ Dice/
 │   ├── style.css
 │   ├── script.js
 │   └── dice-*.png
-├── server.js        # Express server + REST API
+├── netlify/
+│   └── functions/
+│       └── api.js   # Serverless wrapper for Express
+├── server.js        # Express app
+├── netlify.toml     # Netlify configuration
 ├── package.json
 └── README.md
 ```
@@ -95,7 +99,7 @@ Dice/
 
 ## Skills Demonstrated
 
-- RESTful API design (Node.js / Express)
+- Serverless API design (Netlify Functions + Express via `serverless-http`)
 - Database integration (SQLite, parameterized queries)
 - Security best practices (Helmet, CORS, input sanitization)
 - Vanilla JS DOM manipulation and `async/await` fetch calls

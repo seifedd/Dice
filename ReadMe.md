@@ -1,20 +1,106 @@
-## App deployed to production 
-https://eager-ride-dab.netlify.app/ (To play)
-## The objective of pig game is to score 100 points before the opponent do.
-### 1. Gameplay:
-In each turn, a player rolls a die repeatedly until either a 1 is rolled, or player decides to **hold** and pass on the turn to its opponent. The number a player rolls (except the **number 1**) is added to a current score. 
-If the player rolls one they lose their current score and the turn is passed to their opponent. 
-If the player decides to hold, their turn total (temporary score) is added to the overall score.
-Players take turns to roll a single die as many times as they wish. 
-The first player to score 100 win the Game. 
+# 🎲 Pig Game — FullStack Demo
 
-For example, the first player, Donald, begins a turn with a roll of 5. Donald could hold and score 5 points, but chooses to roll again. Donald rolls a 2, and could hold with a turn total of 7 points, but chooses to roll again. Donald rolls a 1, and must end his turn without scoring. The next player, Alexis, rolls the sequence 4-5-3-5-5, after which she chooses to hold, and adds her turn total of 22 points to her score.
+> A two-player dice strategy game rebuilt as a **FullStack web application** to showcase real-world software engineering skills.
 
-### 2. Variantions of the games
+**🌐 Live Demo → [pig-game-xyz.onrender.com](#)** *(link updated after deploy)*
 
-As with many games, Pig is played with many rule variations, including the use of two dice instead of one. Right now, this version is only a starter and uses only one single dice but I'am expecting to built a Commercial variants of two-dice Pig similar to Pass the Pigs, [Pig Dice](https://www.boardgamegeek.com/boardgame/11022/pig-dice), and [Skunk.](https://www.boardgamegeek.com/boardgame/3425/skunk)
+---
 
-## 3. Players: 
-The game can be played with one or two players. This variant is 1-dice Pig game and below is the flowchart depicting a sketch of the application
+## Tech Stack
 
-![Pig game flowchart ](https://github.com/seifedd/Dice/blob/master/pig-game-flowchart.png )
+| Layer      | Technology                          |
+|------------|-------------------------------------|
+| Frontend   | Vanilla HTML5 · CSS3 · JavaScript   |
+| Backend    | Node.js · Express.js                |
+| Database   | SQLite (via `sqlite3`)              |
+| Security   | Helmet · CORS · Input Validation    |
+
+---
+
+## How to Play
+
+Roll the dice each turn to accumulate points. **First player to reach 100 points wins.**
+
+- **Roll** — Roll the dice. Non-1 results add to your current score.
+- **Hold** — Bank your current score. Turn passes to opponent.
+- **Roll a 1** — Lose your current score. Turn passes immediately.
+
+After winning, enter your name to appear on the **live leaderboard** 🏆
+
+---
+
+## Running Locally
+
+```bash
+# 1. Clone the repo
+git clone https://github.com/seifedd/Dice.git
+cd Dice
+
+# 2. Install dependencies
+npm install
+
+# 3. Start the server
+npm start
+
+# 4. Open in browser
+open http://localhost:3000
+```
+
+---
+
+## API Endpoints
+
+| Method | Endpoint           | Description              |
+|--------|--------------------|--------------------------|
+| GET    | `/api/leaderboard` | Fetch top 10 high scores |
+| POST   | `/api/leaderboard` | Submit a new score       |
+
+**POST payload:**
+```json
+{
+  "name":  "Alice",
+  "score": 100,
+  "rolls": 14
+}
+```
+
+---
+
+## Security Measures
+
+- **Helmet** — Sets secure HTTP headers (CSP, X-Frame-Options, etc.)
+- **CORS** — Restricts cross-origin requests
+- **Parameterized SQL queries** — Prevents SQL injection attacks
+- **Input validation & sanitization** — Server rejects invalid/oversized payloads
+- **XSS-safe rendering** — Leaderboard names rendered via `textContent` (never `innerHTML`)
+- **Payload size limit** — Express body parser capped at 10 KB
+
+---
+
+## Project Structure
+
+```
+Dice/
+├── public/          # Static frontend
+│   ├── index.html
+│   ├── style.css
+│   ├── script.js
+│   └── dice-*.png
+├── server.js        # Express server + REST API
+├── package.json
+└── README.md
+```
+
+---
+
+## Skills Demonstrated
+
+- RESTful API design (Node.js / Express)
+- Database integration (SQLite, parameterized queries)
+- Security best practices (Helmet, CORS, input sanitization)
+- Vanilla JS DOM manipulation and `async/await` fetch calls
+- Responsive, accessible frontend UI
+
+---
+
+*Built by [Seif](https://github.com/seifedd)*

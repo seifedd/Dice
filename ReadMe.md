@@ -2,7 +2,7 @@
 
 > A two-player dice strategy game rebuilt as a **FullStack web application** to showcase real-world software engineering skills.
 
-🌐 Live Demo → [Deploying to Netlify...](eager-ride-dab.netlify.app)
+🌐 Live Demo → www.eager-ride-dab.netlify.app
 
 ---
 

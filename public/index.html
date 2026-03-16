@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Pig Game – a two-player dice strategy game. Roll, hold, and be the first to 100 points!" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Pig Game 🎲</title>
+  </head>
+  <body>
+    <main>
+      <!-- ── Players ── -->
+      <section class="player player--0 player--active">
+        <h2 class="name" id="name--0">Player 1</h2>
+        <p class="score" id="score--0">0</p>
+        <div class="current">
+          <p class="current-label">Current</p>
+          <p class="current-score" id="current--0">0</p>
+        </div>
+      </section>
+
+      <section class="player player--1">
+        <h2 class="name" id="name--1">Player 2</h2>
+        <p class="score" id="score--1">0</p>
+        <div class="current">
+          <p class="current-label">Current</p>
+          <p class="current-score" id="current--1">0</p>
+        </div>
+      </section>
+
+      <!-- ── Dice & Controls ── -->
+      <img src="dice-5.png" alt="Playing dice" class="dice hidden" />
+      <button class="btn btn--new" id="btn-new">🔄 New game</button>
+      <button class="btn btn--roll" id="btn-roll">🎲 Roll dice</button>
+      <button class="btn btn--hold" id="btn-hold">📥 Hold</button>
+    </main>
+
+    <!-- ── Leaderboard ── -->
+    <aside class="leaderboard">
+      <h2 class="leaderboard__title">🏆 Leaderboard</h2>
+      <p class="leaderboard__subtitle">Top 10 fastest wins</p>
+      <ol class="leaderboard__list" id="leaderboard-list">
+        <li class="leaderboard__loading">Loading scores…</li>
+      </ol>
+    </aside>
+
+    <!-- ── Win Modal ── -->
+    <div class="modal hidden" id="win-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <div class="modal__card">
+        <h2 class="modal__title" id="modal-title">🎉 You won!</h2>
+        <p class="modal__subtitle" id="modal-subtitle">Enter your name for the leaderboard:</p>
+        <input
+          class="modal__input"
+          id="winner-name"
+          type="text"
+          maxlength="30"
+          placeholder="Your name"
+          autocomplete="off"
+        />
+        <div class="modal__actions">
+          <button class="btn btn--primary" id="btn-submit-score">Save Score</button>
+          <button class="btn btn--ghost" id="btn-skip-score">Skip</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
